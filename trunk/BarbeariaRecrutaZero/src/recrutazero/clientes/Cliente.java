@@ -7,6 +7,11 @@ public class Cliente {
 	public Cliente(EnumPatente patente) {
 		this.patente = patente;
 	}
+	
+	public Cliente(EnumPatente patente, int tempoServico) {
+		this.patente = patente;
+		this.tempoServico = tempoServico;
+	}
 
 	public int getTempoServico() {
 		return tempoServico;
