@@ -12,16 +12,21 @@ public class ControleAcesso implements Runnable{
 	private Barbearia barbearia;
 	private Semaphore semaforoClientes;
 	private Semaphore semaforoLugares;
+	private Semaphore semaforoRelatorio;
 	private int numPausa = 0;
 	private boolean fimDia = false;
 	int n = 0;
 	
-	public ControleAcesso(Forte forte, Barbearia barbearia, Semaphore semaforoLugares, Semaphore semaforoClientes) {
+	private static int numDescartados;
+	
+	public ControleAcesso(Forte forte, Barbearia barbearia, Semaphore semaforoLugares, Semaphore semaforoClientes, Semaphore semaforoRelatorio) {
 		this.barbearia = barbearia;
 		this.forte = forte;		
 		
 		this.semaforoLugares = semaforoLugares; // contador
 		this.semaforoClientes = semaforoClientes; // sincronizacao
+		
+		this.semaforoRelatorio = semaforoRelatorio;
 		
 	}
 
@@ -57,8 +62,8 @@ public class ControleAcesso implements Runnable{
 			if(!EnumPatente.PAUSA.equals(cliente.getPatente())){
 				
 				//Verifico se há espaço para a produção de mais um produto.
-				
-				if (semaforoLugares.availablePermits() > 0) {
+				semaforoRelatorio.acquire();
+				if (barbearia.getNumClientes() < 20) {
 					semaforoLugares.acquire();
 					barbearia.addClienteEspera(cliente);
 					//Indico que há pelo menos um produto já produzido.
@@ -66,10 +71,11 @@ public class ControleAcesso implements Runnable{
 					numPausa = 0;
 				}
 				else {
-					barbearia.marcarDescartado();
+					numDescartados++;
 					numPausa = 0;
 					System.out.println("descartado");
 				}
+				semaforoRelatorio.release();
 			}else {
 				numPausa++;
 				System.out.println("Nenhum cliente chegou.\t:"+numPausa);
@@ -111,6 +117,14 @@ public class ControleAcesso implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static int getNumeroDescartados() {
+		return numDescartados;
+	}
+	
+	public static void limparDescartados() {
+		numDescartados = 0;
 	}
 
 }

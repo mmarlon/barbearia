@@ -2,6 +2,7 @@ package recrutazero.forte;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 
 public class Observador implements Runnable{
@@ -10,10 +11,14 @@ public class Observador implements Runnable{
 	private List<EstadoBarbearia> estadosBarbearia;
 	private boolean fimDoDia;
 	
+	private Semaphore semaforoFazendoRelatorio;
 	
-	public Observador(Barbearia barbearia) {
+	
+	public Observador(Barbearia barbearia, Semaphore semaforoRelatorio) {
 		this.barbearia = barbearia;
 		estadosBarbearia = new ArrayList<EstadoBarbearia>();
+		
+		this.semaforoFazendoRelatorio = semaforoRelatorio;
 		
 	}
 	@Override
@@ -27,9 +32,10 @@ public class Observador implements Runnable{
 	private void coletaDadosRelatorio() {
 		if(barbearia.isMudouEstado()){
 			try {
-				
+				semaforoFazendoRelatorio.acquire();
 				EstadoBarbearia estado = barbearia.getEstado();
 				estadosBarbearia.add(estado);
+				semaforoFazendoRelatorio.release();
 				
 			} catch (InterruptedException e) {
 				System.out.println("Não foi possível pegar os dados para o relatório.");
