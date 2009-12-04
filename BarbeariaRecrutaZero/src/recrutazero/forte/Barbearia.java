@@ -18,12 +18,11 @@ public class Barbearia implements Runnable {
 	protected List<Cliente> oficiaisList;
 	protected List<Cliente> sargentosList;
 	protected List<Cliente> pracasList;
-	private int numDescartados;
 	protected Semaphore oficiaisSemaforo;
 	protected Semaphore sargentosSemaforo;
 	protected Semaphore pracasSemaforo;
 	private Semaphore semaforoFim = new Semaphore(0, true);
-	private Semaphore semaforoFazendoRelatorio = new Semaphore(1, true);
+	private Semaphore semaforoFazendoRelatorio;
 	private boolean mudouEstado = false;
 	private boolean fechar = false;
 	private int numClientes = 0;
@@ -31,10 +30,12 @@ public class Barbearia implements Runnable {
 	private ControleAcesso controleAcesso;
 	private Observador observador;
 	
-	public Barbearia(Semaphore oficiaisSemaforo, Semaphore sargentosSemaforo, Semaphore pracasSemaforo) {
+	public Barbearia(Semaphore oficiaisSemaforo, Semaphore sargentosSemaforo, Semaphore pracasSemaforo, Semaphore semaforoRelatorio) {
 		this.oficiaisSemaforo = oficiaisSemaforo;
 		this.sargentosSemaforo = sargentosSemaforo;
 		this.pracasSemaforo = pracasSemaforo;
+		
+		this.semaforoFazendoRelatorio = semaforoRelatorio;
 
 		oficiaisList = new ArrayList<Cliente>();
 		sargentosList = new ArrayList<Cliente>();
@@ -75,7 +76,7 @@ public class Barbearia implements Runnable {
 	 * @see Barbearia#pegaProximoCliente(EnumPatente)
 	 */
 	public Cliente pegaProximoCliente(EnumPatente patente) {
-		 return getCliente(escolheLista(patente), escolheSemaforo(patente));
+		return getCliente(escolheLista(patente), escolheSemaforo(patente));
 	}
 
 	private Semaphore escolheSemaforo(EnumPatente patente) {
@@ -106,7 +107,7 @@ public class Barbearia implements Runnable {
 	private Cliente getCliente(List<Cliente> lista, Semaphore semaforo) {
 		
 		Cliente cliente = null;
-	
+		
 		try {
 			
 			semaforoFazendoRelatorio.acquire();
@@ -141,7 +142,6 @@ public class Barbearia implements Runnable {
 		
 		try {
 			//Se estiver fazendo relatório, os valores das listas não podem mudar!
-			semaforoFazendoRelatorio.acquire();
 			//Garanto que os dados da fila não serão modificados enquanto faço a adição do produto.
 			semaforo.acquire();
 			lista.add(cliente);
@@ -149,7 +149,6 @@ public class Barbearia implements Runnable {
 			System.out.println("Cliente entrando na barearia\t:"+cliente.getPatente().getPatente());
 			numClientes++;
 			semaforo.release();
-			semaforoFazendoRelatorio.release();
 		
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -213,14 +212,14 @@ public class Barbearia implements Runnable {
 	public EstadoBarbearia getEstado() throws InterruptedException {
 		
 		EstadoBarbearia estadoBarbearia = new EstadoBarbearia();
-		semaforoFazendoRelatorio.acquire();
+		
 	
 		estadoBarbearia.setNumOficiaisFilaEspera(oficiaisList.size());
 		estadoBarbearia.setNumSargentosFilaEspera(sargentosList.size());
 		estadoBarbearia.setNumPracasFilaEspera(pracasList.size());
 		
-		estadoBarbearia.setNumDescartados(numDescartados);
-		numDescartados = 0;
+		estadoBarbearia.setNumDescartados(ControleAcesso.getNumeroDescartados());
+		ControleAcesso.limparDescartados();
 		
 		estadoBarbearia.setTotalClientes(numClientes);
 		
@@ -237,7 +236,6 @@ public class Barbearia implements Runnable {
 		}
 		mudouEstado = false;
 		
-		semaforoFazendoRelatorio.release();
 		
 		
 		return estadoBarbearia;
@@ -259,8 +257,7 @@ public class Barbearia implements Runnable {
 		return numPracas/2;
 	}
 	
-	public void marcarDescartado(){
-		numDescartados++;
+	public int getNumClientes() {
+		return numClientes;
 	}
-	
 }

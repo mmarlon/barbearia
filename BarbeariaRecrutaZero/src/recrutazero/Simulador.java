@@ -16,13 +16,15 @@ import recrutazero.forte.Observador;
 public class Simulador {
 
 	// Indica quantos produtos podem ser produzidos antes que sejam consumidos.
-	private static final int NUM_LUGARES = 20;
+	private static final int NUM_LUGARES = 1;
 	
 	// Indica quantos produtos estarao produzidos no inicio da execucao.
 	private static int NUM_PRODUZIDOS = 0;
 	
 	// O primeiro a tentar fazer uso da exclusão mutua vai encontrar o caminho liberado
 	private static int CAMINHO_LIVRE = 1;
+	
+	private static int OBSERVADOR = 1;
 	
 	public static void main(String[] args) {
 
@@ -32,8 +34,9 @@ public class Simulador {
 		Semaphore semaforoSargento = new Semaphore(CAMINHO_LIVRE, true);
 		Semaphore semaforoPraca = new Semaphore(CAMINHO_LIVRE, true);
 		
+		Semaphore semaforoRelatorio = new Semaphore(OBSERVADOR, true);
 				
-		Barbearia barbearia = new Barbearia(semaforoOficial, semaforoSargento, semaforoPraca);
+		Barbearia barbearia = new Barbearia(semaforoOficial, semaforoSargento, semaforoPraca, semaforoRelatorio);
 		new Thread(barbearia).start();
 		
 		Integer teste = new Integer(NUM_LUGARES);
@@ -46,9 +49,9 @@ public class Simulador {
 		
 
 		
-		ControleAcesso controleAcesso = new ControleAcesso(forte, barbearia, semaforoLugares, semaforoClientes);
+		ControleAcesso controleAcesso = new ControleAcesso(forte, barbearia, semaforoLugares, semaforoClientes, semaforoRelatorio);
 		
-		Observador observador = new Observador(barbearia);
+		Observador observador = new Observador(barbearia, semaforoRelatorio);
 		
 		barbearia.addFuncionario(barbeiroOficial, barbeiroPraca, barbeiroSargento);
 		barbearia.addControles(controleAcesso, observador);
