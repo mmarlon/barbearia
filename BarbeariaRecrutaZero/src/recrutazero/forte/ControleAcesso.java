@@ -2,6 +2,7 @@ package recrutazero.forte;
 
 import java.util.concurrent.Semaphore;
 
+import recrutazero.Simulador;
 import recrutazero.clientes.Cliente;
 import recrutazero.clientes.EnumPatente;
 
@@ -63,7 +64,7 @@ public class ControleAcesso implements Runnable{
 				
 				//Verifico se há espaço para a produção de mais um produto.
 				semaforoRelatorio.acquire();
-				if (barbearia.getNumClientes() < 20) {
+				if (barbearia.getNumClientes() < Simulador.NUM_LUGARES) {
 					semaforoLugares.acquire();
 					barbearia.addClienteEspera(cliente);
 					//Indico que há pelo menos um produto já produzido.
