@@ -14,6 +14,7 @@ import recrutazero.forte.Observador;
 
 
 public class Simulador {
+	public static final int MULT_TEMPO = 1;
 
 	// Indica quantos produtos podem ser produzidos antes que sejam consumidos.
 	public static final int NUM_LUGARES = 20;

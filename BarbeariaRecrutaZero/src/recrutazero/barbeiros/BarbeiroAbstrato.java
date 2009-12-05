@@ -2,6 +2,7 @@ package recrutazero.barbeiros;
 
 import java.util.concurrent.Semaphore;
 
+import recrutazero.Simulador;
 import recrutazero.clientes.Cliente;
 import recrutazero.clientes.EnumPatente;
 import recrutazero.forte.Barbearia;
@@ -29,7 +30,7 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	private void atendeCliente() {
 		Cliente cliente = escolhaCliente();
 		//System.out.println("Cliente sendo atendido pelo barbeiro "+this.getClass().getSimpleName()+ "\t:"+cliente.getPatente().getPatente());
-		sleep(cliente.getTempoServico());
+		sleep(cliente.getTempoServico() * Simulador.MULT_TEMPO);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	 */
 	protected void sleep(long tempoEspera) {
 		try {
-			Thread.sleep(tempoEspera);
+			Thread.sleep(tempoEspera * Simulador.MULT_TEMPO);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
