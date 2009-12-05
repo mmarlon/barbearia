@@ -79,7 +79,7 @@ public class ControleAcesso implements Runnable{
 				semaforoRelatorio.release();
 			}else {
 				numPausa++;
-				System.out.println("Nenhum cliente chegou.\t:"+numPausa);
+				System.out.println("0 Pausa");
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -98,7 +98,7 @@ public class ControleAcesso implements Runnable{
 	 */
 	public void fimDoDia() {
 		try {
-			System.out.println("Terminando o "+this.getClass().getSimpleName());
+			//System.out.println("Terminando o "+this.getClass().getSimpleName());
 			Thread.currentThread().interrupt();
 		} catch (Throwable e) {
 			e.printStackTrace();

@@ -32,11 +32,6 @@ public class Cliente {
 		return patente;
 	}
 
-	@Override
-	public String toString() {
-		return patente.getPatente() + "\t" + tempoServico;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -66,6 +61,10 @@ public class Cliente {
 	public int hashCode() {
 		return id;
 	}
-
-
+	
+	@Override
+	public String toString() {
+		return this.patente + "\t" + this.tempoServico;
+	}
+	
 }

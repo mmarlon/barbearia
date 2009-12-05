@@ -28,7 +28,7 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	 */
 	private void atendeCliente() {
 		Cliente cliente = escolhaCliente();
-		System.out.println("Cliente sendo atendido pelo barbeiro "+this.getClass().getSimpleName()+ "\t:"+cliente.getPatente().getPatente());
+		//System.out.println("Cliente sendo atendido pelo barbeiro "+this.getClass().getSimpleName()+ "\t:"+cliente.getPatente().getPatente());
 		sleep(cliente.getTempoServico());
 	}
 
@@ -83,7 +83,7 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	 */
 	public void fimDoDia() {
 		try {
-			System.out.println("Terminando o "+this.getClass().getSimpleName());
+			//System.out.println("Terminando o "+this.getClass().getSimpleName());
 			Thread.currentThread().interrupt();
 		} catch (Throwable e) {
 			e.printStackTrace();
