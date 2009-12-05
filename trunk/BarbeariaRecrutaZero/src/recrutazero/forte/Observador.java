@@ -50,7 +50,7 @@ public class Observador implements Runnable{
 		mostraRelatorio();
 		
 		try {
-			System.out.println("Terminando o "+this.getClass().getSimpleName());
+			//System.out.println("Terminando o "+this.getClass().getSimpleName());
 			Thread.currentThread().interrupt();
 		} catch (Throwable e) {
 			e.printStackTrace();

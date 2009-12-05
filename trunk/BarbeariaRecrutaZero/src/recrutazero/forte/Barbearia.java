@@ -146,7 +146,7 @@ public class Barbearia implements Runnable {
 			semaforo.acquire();
 			lista.add(cliente);
 			mudouEstado = true;
-			System.out.println("Cliente entrando na barearia\t:"+cliente.getPatente().getPatente());
+			System.out.println(cliente);
 			numClientes++;
 			semaforo.release();
 		

@@ -29,6 +29,15 @@ public enum EnumPatente {
 	public void setPatente(String patente) {
 		this.patente = patente;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append(this.codigo);
+		stringBuffer.append(" ");
+		stringBuffer.append(this.patente);
+		return stringBuffer.toString();
+	}
 		
 }
 
