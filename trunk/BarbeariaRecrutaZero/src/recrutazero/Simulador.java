@@ -16,7 +16,7 @@ import recrutazero.forte.Observador;
 public class Simulador {
 
 	// Indica quantos produtos podem ser produzidos antes que sejam consumidos.
-	private static final int NUM_LUGARES = 1;
+	public static final int NUM_LUGARES = 20;
 	
 	// Indica quantos produtos estarao produzidos no inicio da execucao.
 	private static int NUM_PRODUZIDOS = 0;
