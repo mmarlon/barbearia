@@ -28,7 +28,7 @@ public class Observador implements Runnable{
 	public void run() {
 		while (!fimDoDia) {
 			coletaDadosRelatorio();
-			sleep(INTERVALO * Simulador.MULT_TEMPO);
+			sleep(INTERVALO * Simulador.VELOCIDADE_SIMULACAO);
 		}
 	}
 	
@@ -131,7 +131,7 @@ public class Observador implements Runnable{
 	 */
 	protected void sleep(long tempoEspera) {
 		try {
-			Thread.sleep(tempoEspera * Simulador.MULT_TEMPO);
+			Thread.sleep(tempoEspera * Simulador.VELOCIDADE_SIMULACAO);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
