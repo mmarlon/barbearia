@@ -30,7 +30,7 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	private void atendeCliente() {
 		Cliente cliente = escolhaCliente();
 		//System.out.println("Cliente sendo atendido pelo barbeiro "+this.getClass().getSimpleName()+ "\t:"+cliente.getPatente().getPatente());
-		sleep(cliente.getTempoServico() * Simulador.MULT_TEMPO);
+		sleep(cliente.getTempoServico() * Simulador.VELOCIDADE_SIMULACAO);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	 */
 	protected void sleep(long tempoEspera) {
 		try {
-			Thread.sleep(tempoEspera * Simulador.MULT_TEMPO);
+			Thread.sleep(tempoEspera * Simulador.VELOCIDADE_SIMULACAO);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

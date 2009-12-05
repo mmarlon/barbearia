@@ -45,7 +45,7 @@ public class ControleAcesso implements Runnable{
 	 * Método que faz o tenente ficar esperando apróxima chegada de algum cliente.
 	 */
 	private void aguardaProximaChegada() {
-		sleep((forte.geraEvento()%5+1) * Simulador.MULT_TEMPO);
+		sleep((forte.geraEvento()%5+1) * Simulador.VELOCIDADE_SIMULACAO);
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class ControleAcesso implements Runnable{
 	 */
 	protected void sleep(long tempoEspera) {
 		try {
-			Thread.sleep(tempoEspera * Simulador.MULT_TEMPO);
+			Thread.sleep(tempoEspera * Simulador.VELOCIDADE_SIMULACAO);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
