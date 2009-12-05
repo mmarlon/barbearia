@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import recrutazero.Simulador;
+
 
 public class Observador implements Runnable{
 
+	private static final int INTERVALO = 3;
 	private Barbearia barbearia;
 	private List<EstadoBarbearia> estadosBarbearia;
 	private boolean fimDoDia;
@@ -25,7 +28,7 @@ public class Observador implements Runnable{
 	public void run() {
 		while (!fimDoDia) {
 			coletaDadosRelatorio();
-			sleep(3);
+			sleep(INTERVALO * Simulador.MULT_TEMPO);
 		}
 	}
 	
@@ -128,7 +131,7 @@ public class Observador implements Runnable{
 	 */
 	protected void sleep(long tempoEspera) {
 		try {
-			Thread.sleep(tempoEspera);
+			Thread.sleep(tempoEspera * Simulador.MULT_TEMPO);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
