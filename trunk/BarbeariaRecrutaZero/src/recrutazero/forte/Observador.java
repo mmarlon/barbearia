@@ -148,14 +148,14 @@ public class Observador implements Runnable{
 		relatorio.append("* N�mero de clientes descartados: " + clientesDescartados + "\n\n");
 		
 		relatorio.append("* Tempo medio de atendimento por categoria:\n");
-		relatorio.append("Oficiais: " + String.format("%.2f", (tempoAtendimentoOficiais / numEstAtendimentoOficiais)) + "\n");
-		relatorio.append("Sargentos: " + String.format("%.2f", (tempoAtendimentoSargentos / numEstAtendimentoSargentos)) + "\n");
-		relatorio.append("Pracas: " + String.format("%.2f", (tempoAtendimentoPracas/ numEstAtendimentoPracas)) + "\n\n");
+		relatorio.append("Oficiais: " + String.format("%.2f", (tempoAtendimentoOficiais / numEstAtendimentoOficiais)) + " seg \n");
+		relatorio.append("Sargentos: " + String.format("%.2f", (tempoAtendimentoSargentos / numEstAtendimentoSargentos)) + " seg \n");
+		relatorio.append("Pracas: " + String.format("%.2f", (tempoAtendimentoPracas/ numEstAtendimentoPracas)) + " seg \n\n");
 		
 		relatorio.append("* Tempo medio de espera por categoria:\n");
-		relatorio.append("Oficiais: " + String.format("%.2f", (tempoEsperaOficiais / numEstAtendimentoOficiais)) + "\n");
-		relatorio.append("Sargentos: " + String.format("%.2f", (tempoEsperaSargentos / numEstAtendimentoSargentos)) + "\n");
-		relatorio.append("Pracas: " + String.format("%.2f", (tempoEsperaPracas/ numEstAtendimentoPracas)) + "\n\n");
+		relatorio.append("Oficiais: " + String.format("%.2f", (tempoEsperaOficiais / numEstAtendimentoOficiais)) + " seg \n");
+		relatorio.append("Sargentos: " + String.format("%.2f", (tempoEsperaSargentos / numEstAtendimentoSargentos)) + " seg \n");
+		relatorio.append("Pracas: " + String.format("%.2f", (tempoEsperaPracas/ numEstAtendimentoPracas)) + " seg \n\n");
 		
 		relatorio.append("* N�mero de atendimentos por categoria:\n");
 		relatorio.append("Oficiais: " + String.format("%.2f", (atendimentoOficiais / numEstados)) + "\n");
@@ -172,67 +172,8 @@ public class Observador implements Runnable{
 		
 		System.out.println(relatorio.toString());
 		
-//		VELHO();
 		
 	}
-//	private void VELHO() {
-//		System.out.println("\nRelatório:");
-//		double numOficiais = 0;
-//		double numSargentos = 0;
-//		double numPracas = 0;
-//		double numCadeirasLivres = 0;
-//		
-//		double tempoEsperaOficiais = 0;
-//		double tempoEsperaSargentos = 0;
-//		double tempoEsperaPracas = 0;
-//		
-//		for (EstadoBarbearia estadoBarbearia : estadosBarbearia) {
-//			numOficiais+=estadoBarbearia.getNumOficiaisFilaEspera();
-//			numPracas+=estadoBarbearia.getNumPracasFilaEspera();
-//			numSargentos+=estadoBarbearia.getNumSargentosFilaEspera();
-//			numCadeirasLivres+=20-(estadoBarbearia.getNumOficiaisFilaEspera() + estadoBarbearia.getNumPracasFilaEspera() + estadoBarbearia.getNumSargentosFilaEspera());
-//			
-//			for (Integer tempo : estadoBarbearia.getTempoServicoSargento()) {
-//				tempoEsperaSargentos+=tempo;	
-//			}
-//			
-//			for (Integer tempo : estadoBarbearia.getTempoServicoOficiais()) {
-//				tempoEsperaOficiais+=tempo;	
-//			}
-//			
-//			for (Integer tempo : estadoBarbearia.getTempoServicoPracas()) {
-//				tempoEsperaPracas+=tempo;	
-//			}
-//		}
-//		
-//		double totalClientes = numOficiais + numPracas + numSargentos;
-//		System.out.println("Estado de ocupação das cadeiras:");
-//		System.out.println("Oficiais \t"+(numOficiais/(totalClientes))*100);
-//		System.out.println("Sargentos\t"+(numSargentos/(totalClientes))*100);
-//		System.out.println("Praças   \t"+(numPracas/(totalClientes))*100);
-//		System.out.println("Livres   \t"+(numCadeirasLivres/(totalClientes+numCadeirasLivres))*100);
-//		
-//		System.out.println("Comprimento médio das filas:");
-//		System.out.println("Oficiais \t"+(numOficiais/estadosBarbearia.size())*100);
-//		System.out.println("Sargentos\t"+(numSargentos/estadosBarbearia.size())*100);
-//		System.out.println("Praças   \t"+(numPracas/estadosBarbearia.size())*100);
-//		
-//		System.out.println("Tempo médio de atendimento:");
-//		
-//		System.out.println("Oficiais \t"+(tempoEsperaOficiais/numOficiais));
-//		System.out.println("Sargentos\t"+(tempoEsperaSargentos/numSargentos));
-//		System.out.println("Praças   \t"+(tempoEsperaPracas/numPracas));
-//		
-//		System.out.println("Número de atendimentos:");
-//		System.out.println("Oficiais \t"+(numOficiais));
-//		System.out.println("Sargentos\t"+(numSargentos));
-//		System.out.println("Praças   \t"+(numPracas));
-//		
-//		System.out.println("Número de atendimentos v2:");
-//		System.out.println("Oficiais \t"+(barbearia).getNumOficiais());
-//		System.out.println("Sargentos\t"+(barbearia).getNumSagentos());
-//		System.out.println("Praças   \t"+(barbearia).getNumPracas());
-//	}
 
 	
 	/**
