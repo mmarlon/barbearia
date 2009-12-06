@@ -9,7 +9,7 @@ import recrutazero.forte.Barbearia;
 public class BarbeiroSargento extends BarbeiroAbstrato{
 
 	public BarbeiroSargento(Barbearia barbearia, Semaphore semaforoLugares,
-			Semaphore semaforoClientes, Integer teste) {
+			Semaphore semaforoClientes) {
 		super(barbearia, semaforoLugares, semaforoClientes);
 	}
 

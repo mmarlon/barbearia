@@ -30,6 +30,11 @@ public class Barbearia implements Runnable {
 	private ControleAcesso controleAcesso;
 	private Observador observador;
 	
+	private List<Cliente> oficiaisAtendidos;
+	private List<Cliente> sargentosAtendidos;
+	private List<Cliente> pracasAtendidos;
+	private List<Cliente> clientesAtendidos;	
+	
 	public Barbearia(Semaphore oficiaisSemaforo, Semaphore sargentosSemaforo, Semaphore pracasSemaforo, Semaphore semaforoRelatorio) {
 		this.oficiaisSemaforo = oficiaisSemaforo;
 		this.sargentosSemaforo = sargentosSemaforo;
@@ -40,6 +45,11 @@ public class Barbearia implements Runnable {
 		oficiaisList = new ArrayList<Cliente>();
 		sargentosList = new ArrayList<Cliente>();
 		pracasList = new ArrayList<Cliente>();
+		
+		oficiaisAtendidos = new ArrayList<Cliente>();
+		sargentosAtendidos = new ArrayList<Cliente>();
+		pracasAtendidos = new ArrayList<Cliente>();
+		clientesAtendidos = new ArrayList<Cliente>();
 		
 	}
 
@@ -114,6 +124,7 @@ public class Barbearia implements Runnable {
 			// Garanto que os dados da fila não serão modificados enquanto faço a adição do produto.
 			semaforo.acquire();
 			cliente = lista.remove(0);
+			marcarAtendimento(cliente);
 			numClientes--;
 			mudouEstado = true;
 			verificaTermino();
@@ -127,6 +138,21 @@ public class Barbearia implements Runnable {
 		return cliente;
 	}
 
+	private void marcarAtendimento(Cliente cliente) {
+		cliente.setMomentoAtendimento(System.currentTimeMillis());
+		switch (cliente.getPatente()) {
+		case OFICIAL:
+			oficiaisAtendidos.add(cliente);
+			break;
+		case SARGENTO:
+			sargentosAtendidos.add(cliente);
+			break;
+		case PRACA:
+			pracasAtendidos.add(cliente);
+			break;
+		}
+	}
+
 	private void verificaTermino() {
 		if(numClientes==0 && this.fechar){
 			semaforoFim.release();
@@ -135,16 +161,17 @@ public class Barbearia implements Runnable {
 
 	/**
 	 * Método que adiciona um cliente em uma dada lista.
-	 * @param lista Lista onde um cliente de ser adicionado.
+	 * @param fila Lista onde um cliente de ser adicionado.
 	 * @param cliente Cliente que deseja ser adicionado.
 	 */
-	private void addCliente(List<Cliente> lista, Cliente cliente, Semaphore semaforo) {
+	private void addCliente(List<Cliente> fila, Cliente cliente, Semaphore semaforo) {
 		
 		try {
 			//Se estiver fazendo relatório, os valores das listas não podem mudar!
 			//Garanto que os dados da fila não serão modificados enquanto faço a adição do produto.
 			semaforo.acquire();
-			lista.add(cliente);
+			cliente.setMomentoEntrada(System.currentTimeMillis());
+			fila.add(cliente);
 			mudouEstado = true;
 			System.out.println(cliente);
 			numClientes++;
@@ -213,33 +240,45 @@ public class Barbearia implements Runnable {
 		
 		EstadoBarbearia estadoBarbearia = new EstadoBarbearia();
 		
-	
-		estadoBarbearia.setNumOficiaisFilaEspera(oficiaisList.size());
-		estadoBarbearia.setNumSargentosFilaEspera(sargentosList.size());
-		estadoBarbearia.setNumPracasFilaEspera(pracasList.size());
+		estadoBarbearia.analisarFilasEspera(oficiaisList, sargentosList, pracasList);
 		
 		estadoBarbearia.setNumDescartados(ControleAcesso.getNumeroDescartados());
 		ControleAcesso.limparDescartados();
 		
-		estadoBarbearia.setTotalClientes(numClientes);
+		estadoBarbearia.analisarAtendimentos(oficiaisAtendidos, sargentosAtendidos, pracasAtendidos);
+		oficiaisAtendidos.clear();
+		sargentosAtendidos.clear();
+		pracasAtendidos.clear();
+	
+//		VELHO(estadoBarbearia);
 		
-		for (Cliente cliente : oficiaisList) {
-			estadoBarbearia.getTempoServicoOficiais().add(cliente.getTempoServico());
-		}
-		
-		for (Cliente cliente : sargentosList) {
-			estadoBarbearia.getTempoServicoSargento().add(cliente.getTempoServico());
-		}
-		
-		for (Cliente cliente : pracasList) {
-			estadoBarbearia.getTempoServicoPracas().add(cliente.getTempoServico());
-		}
 		mudouEstado = false;
-		
-		
 		
 		return estadoBarbearia;
 	}
+
+//	private void VELHO(EstadoBarbearia estadoBarbearia) {
+//		estadoBarbearia.setNumOficiaisFilaEspera(oficiaisList.size());
+//		estadoBarbearia.setNumSargentosFilaEspera(sargentosList.size());
+//		estadoBarbearia.setNumPracasFilaEspera(pracasList.size());
+//		
+//		estadoBarbearia.setNumDescartados(ControleAcesso.getNumeroDescartados());
+//		ControleAcesso.limparDescartados();
+//		
+//		estadoBarbearia.setTotalClientes(numClientes);
+//		
+//		for (Cliente cliente : oficiaisList) {
+//			estadoBarbearia.getTempoServicoOficiais().add(cliente.getTempoServico());
+//		}
+//		
+//		for (Cliente cliente : sargentosList) {
+//			estadoBarbearia.getTempoServicoSargento().add(cliente.getTempoServico());
+//		}
+//		
+//		for (Cliente cliente : pracasList) {
+//			estadoBarbearia.getTempoServicoPracas().add(cliente.getTempoServico());
+//		}
+//	}
 
 	public boolean isMudouEstado() {
 		return mudouEstado;

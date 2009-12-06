@@ -1,51 +1,108 @@
 package recrutazero.forte;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import recrutazero.Simulador;
+import recrutazero.clientes.Cliente;
+
 public class EstadoBarbearia {
+	
+	private int numeroLugares;
+	
 	private int numOficiaisFilaEspera;
 	private int numSargentosFilaEspera;
 	private int numPracasFilaEspera;
 	
+	private int numVagaFilaEspera;
 	private int numDescartados;
 	
-	private int totalClientes;
-
-	private List<Integer> tempoServicoOficiais;
-	private List<Integer> tempoServicoSargento;
-	private List<Integer> tempoServicoPracas;
+	private double tempoAtendimentoOficiais;
+	private double tempoAtendimentoSargentos;
+	private double tempoAtendimentoPracas;
+	
+	private double tempoEsperaOficiais;
+	private double tempoEsperaSargentos;
+	private double tempoEsperaPracas;
+	
+	private int numOficiaisAtendidos;
+	private int numSargentosAtendidos;
+	private int numPracasAtendidos;
 	
 	public EstadoBarbearia() {
-		tempoServicoOficiais = new ArrayList<Integer>();
-		tempoServicoSargento = new ArrayList<Integer>();
-		tempoServicoPracas = new ArrayList<Integer>();
+		this.numeroLugares = Simulador.NUM_LUGARES;
+	}
+	
+	public void analisarFilasEspera(List<Cliente> filaOficiais, List<Cliente> filaSargentos, List<Cliente> filaPracas) {
+		this.numOficiaisFilaEspera = filaOficiais.size();
+		this.numSargentosFilaEspera = filaSargentos.size();
+		this.numPracasFilaEspera = filaPracas.size();
+		
+		this.numVagaFilaEspera = numeroLugares - numOficiaisFilaEspera - numSargentosFilaEspera - numPracasFilaEspera;
+	}
+	
+	public void analisarAtendimentos(List<Cliente> oficiais, List<Cliente> sargentos, List<Cliente> pracas) {
+		this.numOficiaisAtendidos = oficiais.size();
+		for (Cliente oficial : oficiais) {
+			this.tempoAtendimentoOficiais += oficial.getTempoServico();
+			this.tempoEsperaOficiais += oficial.getTempoEsperaFila();
+		}
+		if (this.numOficiaisAtendidos > 0) {
+			this.tempoAtendimentoOficiais /= numOficiaisAtendidos;
+			this.tempoEsperaOficiais /= numOficiaisAtendidos;
+		}
+		
+		
+		this.numSargentosAtendidos = sargentos.size();
+		for (Cliente sargento : sargentos) {
+			this.tempoAtendimentoSargentos += sargento.getTempoServico();
+			this.tempoEsperaSargentos += sargento.getTempoEsperaFila();
+		}
+		if (this.numSargentosAtendidos > 0) {
+			this.tempoAtendimentoSargentos /= numSargentosAtendidos;
+			this.tempoEsperaSargentos /= numSargentosAtendidos;
+		}
+		
+		
+		this.numPracasAtendidos = pracas.size();
+		for (Cliente praca : pracas) {
+			this.tempoAtendimentoPracas += praca.getTempoServico();
+			this.tempoEsperaPracas += praca.getTempoEsperaFila();
+		}
+		if (this.numPracasAtendidos > 0) {
+			this.tempoAtendimentoPracas /= numPracasAtendidos;
+			this.tempoEsperaPracas /= numPracasAtendidos;
+		}
+		
+	}
+	
+	public double getEstadoOcupacaoOficiais() {
+		return (this.numOficiaisFilaEspera / (double)numeroLugares) * 100;
+	}
+	
+	public double getEstadoOcupacaoSargentos() {
+		return (this.numSargentosFilaEspera / (double)numeroLugares) * 100;
+	}
+	
+	public double getEstadoOcupacaoPracas() {
+		return (this.numPracasFilaEspera / (double)numeroLugares) * 100;
+	}
+	
+	public double getEstadoOcupacaoVazio() {
+		return (this.numVagaFilaEspera / (double)numeroLugares) * 100;
 	}
 
 	public int getNumOficiaisFilaEspera() {
 		return numOficiaisFilaEspera;
 	}
 
-	public void setNumOficiaisFilaEspera(int numOficiaisFilaEspera) {
-		this.numOficiaisFilaEspera = numOficiaisFilaEspera;
-	}
-
 	public int getNumSargentosFilaEspera() {
 		return numSargentosFilaEspera;
-	}
-
-	public void setNumSargentosFilaEspera(int numSargentosFilaEspera) {
-		this.numSargentosFilaEspera = numSargentosFilaEspera;
 	}
 
 	public int getNumPracasFilaEspera() {
 		return numPracasFilaEspera;
 	}
 
-	public void setNumPracasFilaEspera(int numPracasFilaEspera) {
-		this.numPracasFilaEspera = numPracasFilaEspera;
-	}
-	
 	public int getNumDescartados() {
 		return numDescartados;
 	}
@@ -54,36 +111,125 @@ public class EstadoBarbearia {
 		this.numDescartados = numDescartados;
 	}
 
-	public int getTotalClientes() {
-		return totalClientes;
+	public double getTempoAtendimentoOficiais() {
+		return tempoAtendimentoOficiais;
 	}
 
-	public void setTotalClientes(int totalClientes) {
-		this.totalClientes = totalClientes;
+	public double getTempoAtendimentoSargentos() {
+		return tempoAtendimentoSargentos;
 	}
 
-	public List<Integer> getTempoServicoOficiais() {
-		return tempoServicoOficiais;
+	public double getTempoAtendimentoPracas() {
+		return tempoAtendimentoPracas;
 	}
 
-	public void setTempoServicoOficiais(List<Integer> tempoServicoOficiais) {
-		this.tempoServicoOficiais = tempoServicoOficiais;
+	public double getTempoEsperaOficiais() {
+		return tempoEsperaOficiais;
 	}
 
-	public List<Integer> getTempoServicoSargento() {
-		return tempoServicoSargento;
+	public double getTempoEsperaSargentos() {
+		return tempoEsperaSargentos;
 	}
 
-	public void setTempoServicoSargento(List<Integer> tempoServicoSargento) {
-		this.tempoServicoSargento = tempoServicoSargento;
+	public double getTempoEsperaPracas() {
+		return tempoEsperaPracas;
 	}
 
-	public List<Integer> getTempoServicoPracas() {
-		return tempoServicoPracas;
+	public int getNumOficiaisAtendidos() {
+		return numOficiaisAtendidos;
 	}
 
-	public void setTempoServicoPracas(List<Integer> tempoServicoPracas) {
-		this.tempoServicoPracas = tempoServicoPracas;
+	public int getNumSargentosAtendidos() {
+		return numSargentosAtendidos;
 	}
+
+	public int getNumPracasAtendidos() {
+		return numPracasAtendidos;
+	}
+	
+	
+
+	
+	
+	
+	
+	
+//	private int numDescartados;
+//	
+//	private int totalClientes;
+//
+//	private List<Integer> tempoServicoOficiais;
+//	private List<Integer> tempoServicoSargento;
+//	private List<Integer> tempoServicoPracas;
+//	
+//	public EstadoBarbearia() {
+//		tempoServicoOficiais = new ArrayList<Integer>();
+//		tempoServicoSargento = new ArrayList<Integer>();
+//		tempoServicoPracas = new ArrayList<Integer>();
+//	}
+//
+//	public int getNumOficiaisFilaEspera() {
+//		return numOficiaisFilaEspera;
+//	}
+//
+//	public void setNumOficiaisFilaEspera(int numOficiaisFilaEspera) {
+//		this.numOficiaisFilaEspera = numOficiaisFilaEspera;
+//	}
+//
+//	public int getNumSargentosFilaEspera() {
+//		return numSargentosFilaEspera;
+//	}
+//
+//	public void setNumSargentosFilaEspera(int numSargentosFilaEspera) {
+//		this.numSargentosFilaEspera = numSargentosFilaEspera;
+//	}
+//
+//	public int getNumPracasFilaEspera() {
+//		return numPracasFilaEspera;
+//	}
+//
+//	public void setNumPracasFilaEspera(int numPracasFilaEspera) {
+//		this.numPracasFilaEspera = numPracasFilaEspera;
+//	}
+//	
+//	public int getNumDescartados() {
+//		return numDescartados;
+//	}
+//
+//	public void setNumDescartados(int numDescartados) {
+//		this.numDescartados = numDescartados;
+//	}
+//
+//	public int getTotalClientes() {
+//		return totalClientes;
+//	}
+//
+//	public void setTotalClientes(int totalClientes) {
+//		this.totalClientes = totalClientes;
+//	}
+//
+//	public List<Integer> getTempoServicoOficiais() {
+//		return tempoServicoOficiais;
+//	}
+//
+//	public void setTempoServicoOficiais(List<Integer> tempoServicoOficiais) {
+//		this.tempoServicoOficiais = tempoServicoOficiais;
+//	}
+//
+//	public List<Integer> getTempoServicoSargento() {
+//		return tempoServicoSargento;
+//	}
+//
+//	public void setTempoServicoSargento(List<Integer> tempoServicoSargento) {
+//		this.tempoServicoSargento = tempoServicoSargento;
+//	}
+//
+//	public List<Integer> getTempoServicoPracas() {
+//		return tempoServicoPracas;
+//	}
+//
+//	public void setTempoServicoPracas(List<Integer> tempoServicoPracas) {
+//		this.tempoServicoPracas = tempoServicoPracas;
+//	}
 
 }

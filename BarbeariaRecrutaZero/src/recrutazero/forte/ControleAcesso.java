@@ -15,6 +15,7 @@ public class ControleAcesso implements Runnable{
 	private Semaphore semaforoLugares;
 	private Semaphore semaforoRelatorio;
 	private int numPausa = 0;
+	private static int totalPausa = 0;
 	private boolean fimDia = false;
 	int n = 0;
 	
@@ -79,11 +80,16 @@ public class ControleAcesso implements Runnable{
 				semaforoRelatorio.release();
 			}else {
 				numPausa++;
+				totalPausa++;
 				System.out.println("0 Pausa");
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static int getTotalPausa() {
+		return totalPausa;
 	}
 
 	private void verificaFechamento() {

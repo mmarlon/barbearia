@@ -10,7 +10,7 @@ public class BarbeiroPraca extends BarbeiroAbstrato{
 	
 
 	public BarbeiroPraca(Barbearia barbearia, Semaphore semaforoLugares,
-			Semaphore semaforoClientes, Integer teste) {
+			Semaphore semaforoClientes) {
 		super(barbearia, semaforoLugares, semaforoClientes);
 	}
 
