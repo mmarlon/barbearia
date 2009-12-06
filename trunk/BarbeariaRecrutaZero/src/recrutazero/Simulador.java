@@ -14,26 +14,21 @@ import recrutazero.forte.Observador;
 
 
 public class Simulador {
-	public static final int VELOCIDADE_SIMULACAO = 1; // Quanto maior, mais lento
+	public static final int VELOCIDADE_SIMULACAO = 1; // Quanto maior, mais lento. Somente para DEBUG
 
-	// Indica quantos produtos podem ser produzidos antes que sejam consumidos.
 	public static final int NUM_LUGARES = 20;
-	
-	// Indica quantos produtos estarao produzidos no inicio da execucao.
-	private static int NUM_PRODUZIDOS = 0;
-	
-	// O primeiro a tentar fazer uso da exclusão mutua vai encontrar o caminho liberado
-	private static int CAMINHO_LIVRE = 1;
-	
+	private static int NUM_CLIENTES = 0;
+	private static int DISPONIBILIDADE = 1;
+
 	private static int OBSERVADOR = 1;
 	
 	public static void main(String[] args) {
 
-		Semaphore semaforoClientes = new Semaphore(NUM_PRODUZIDOS, true);
+		Semaphore semaforoClientes = new Semaphore(NUM_CLIENTES, true);
 		Semaphore semaforoLugares = new Semaphore(NUM_LUGARES, true);
-		Semaphore semaforoOficial = new Semaphore(CAMINHO_LIVRE, true);
-		Semaphore semaforoSargento = new Semaphore(CAMINHO_LIVRE, true);
-		Semaphore semaforoPraca = new Semaphore(CAMINHO_LIVRE, true);
+		Semaphore semaforoOficial = new Semaphore(DISPONIBILIDADE, true);
+		Semaphore semaforoSargento = new Semaphore(DISPONIBILIDADE, true);
+		Semaphore semaforoPraca = new Semaphore(DISPONIBILIDADE, true);
 		
 		Semaphore semaforoRelatorio = new Semaphore(OBSERVADOR, true);
 				
@@ -45,8 +40,6 @@ public class Simulador {
 		BarbeiroAbstrato barbeiroSargento = new BarbeiroSargento(barbearia, semaforoLugares, semaforoClientes);
 		
 		Forte forte = new Forte(new GeradorEventos());
-		
-
 		
 		ControleAcesso controleAcesso = new ControleAcesso(forte, barbearia, semaforoLugares, semaforoClientes, semaforoRelatorio);
 		

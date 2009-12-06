@@ -41,15 +41,12 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	protected Cliente escolhaCliente() {
 		Cliente cliente = null;
 		try {
-			// Verifico se há algum produto produzido.
 			semaforoClientes.acquire();
 
 			semaforoEscolheCliente.acquire();
 			cliente = barbearia.pegaProximoCliente(escolhePatente());
 			semaforoEscolheCliente.release();
 
-			// Indico que há espaço para a produção de pelo menos mais um
-			// produto.
 			semaforoLugares.release();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -79,9 +76,6 @@ public abstract class BarbeiroAbstrato implements Runnable{
 		}
 	}
 
-	/**
-	 * Método que fazer com que o funcionário termine seu expediente.
-	 */
 	public void fimDoDia() {
 		try {
 			//System.out.println("Terminando o "+this.getClass().getSimpleName());
@@ -91,13 +85,6 @@ public abstract class BarbeiroAbstrato implements Runnable{
 		}
 	}
 
-	/**
-	 * Método que define o tempo que o processo deve ficar parado até que possa
-	 * gerar um outro evento.
-	 * 
-	 * @param tempoEspera
-	 *            Tempo que a thread deve ficar dormindo!
-	 */
 	protected void sleep(long tempoEspera) {
 		try {
 			Thread.sleep(tempoEspera * Simulador.VELOCIDADE_SIMULACAO);

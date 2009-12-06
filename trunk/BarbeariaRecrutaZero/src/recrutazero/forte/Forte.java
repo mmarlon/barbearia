@@ -122,12 +122,6 @@ public class Forte {
 		return geradorEventos.gera();
 	}
 
-	/**
-	 * @see Forte#getCliente() Há 50% de chances de chegar alguém no forte. Se
-	 *      chegou, verifique o tipo! Se não, dá uma pausa. Passando do
-	 *      número máximo de clientes gerados, ele passa a entregar PAUSAs.
-	 *      Essas pausas farão o sistema parar.
-	 */
 	public Cliente getCliente() {
 		Cliente cliente = new Cliente(EnumPatente.PAUSA);
 		if (iterator.hasNext()) {
