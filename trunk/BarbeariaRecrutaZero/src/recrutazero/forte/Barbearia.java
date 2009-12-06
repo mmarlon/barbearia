@@ -33,7 +33,6 @@ public class Barbearia implements Runnable {
 	private List<Cliente> oficiaisAtendidos;
 	private List<Cliente> sargentosAtendidos;
 	private List<Cliente> pracasAtendidos;
-	private List<Cliente> clientesAtendidos;	
 	
 	public Barbearia(Semaphore oficiaisSemaforo, Semaphore sargentosSemaforo, Semaphore pracasSemaforo, Semaphore semaforoRelatorio) {
 		this.oficiaisSemaforo = oficiaisSemaforo;
@@ -49,7 +48,6 @@ public class Barbearia implements Runnable {
 		oficiaisAtendidos = new ArrayList<Cliente>();
 		sargentosAtendidos = new ArrayList<Cliente>();
 		pracasAtendidos = new ArrayList<Cliente>();
-		clientesAtendidos = new ArrayList<Cliente>();
 		
 	}
 
