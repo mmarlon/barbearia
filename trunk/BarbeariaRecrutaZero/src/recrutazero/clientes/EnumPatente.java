@@ -1,10 +1,10 @@
 package recrutazero.clientes;
 
 public enum EnumPatente {
-	OFICIAL (1, "Oficial "),
+	OFICIAL (1, "Oficial"),
 	SARGENTO(2, "Sargento"),
-	PRACA   (3, "Praça   "),
-	PAUSA   (0, "Pausa   ");
+	PRACA   (3, "Praça "),
+	PAUSA   (0, "Pausa ");
 
 	private int codigo;
 	private String patente;

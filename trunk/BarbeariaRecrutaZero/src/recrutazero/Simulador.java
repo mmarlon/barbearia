@@ -14,7 +14,7 @@ import recrutazero.forte.Observador;
 
 
 public class Simulador {
-	public static final int VELOCIDADE_SIMULACAO = 10; // Quanto maior, mais lento
+	public static final int VELOCIDADE_SIMULACAO = 1; // Quanto maior, mais lento
 
 	// Indica quantos produtos podem ser produzidos antes que sejam consumidos.
 	public static final int NUM_LUGARES = 20;
@@ -40,11 +40,9 @@ public class Simulador {
 		Barbearia barbearia = new Barbearia(semaforoOficial, semaforoSargento, semaforoPraca, semaforoRelatorio);
 		new Thread(barbearia).start();
 		
-		Integer teste = new Integer(NUM_LUGARES);
-		
-		BarbeiroAbstrato barbeiroOficial = new BarbeiroOficial(barbearia, semaforoLugares, semaforoClientes, teste);
-		BarbeiroAbstrato barbeiroPraca = new BarbeiroPraca(barbearia, semaforoLugares, semaforoClientes, teste);
-		BarbeiroAbstrato barbeiroSargento = new BarbeiroSargento(barbearia, semaforoLugares, semaforoClientes, teste);
+		BarbeiroAbstrato barbeiroOficial = new BarbeiroOficial(barbearia, semaforoLugares, semaforoClientes);
+		BarbeiroAbstrato barbeiroPraca = new BarbeiroPraca(barbearia, semaforoLugares, semaforoClientes);
+		BarbeiroAbstrato barbeiroSargento = new BarbeiroSargento(barbearia, semaforoLugares, semaforoClientes);
 		
 		Forte forte = new Forte(new GeradorEventos());
 		

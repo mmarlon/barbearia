@@ -4,6 +4,8 @@ public class Cliente {
 	private int tempoServico;
 	private EnumPatente patente;
 	protected int id;
+	private long momentoEntrada;
+	private long momentoAtendimento;
 	
 	public Cliente(EnumPatente patente) {
 		this.patente = patente;
@@ -30,6 +32,30 @@ public class Cliente {
 
 	public EnumPatente getPatente() {
 		return patente;
+	}
+	
+	public long getMomentoEntrada() {
+		return momentoEntrada;
+	}
+
+	public void setMomentoEntrada(long momentoEntrada) {
+		this.momentoEntrada = momentoEntrada;
+	}
+
+	public long getMomentoAtendimento() {
+		return momentoAtendimento;
+	}
+
+	public void setMomentoAtendimento(long momentoAtendimento) {
+		this.momentoAtendimento = momentoAtendimento;
+	}
+	
+	public int getTempoEsperaFila() {
+		if (this.momentoAtendimento > 0 && this.momentoEntrada > 0) {
+			return (int) (this.momentoAtendimento - this.momentoEntrada);
+		}
+		
+		return Integer.MAX_VALUE;
 	}
 
 	public Integer getId() {

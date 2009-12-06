@@ -14,6 +14,10 @@ public class Forte {
 	protected Iterator<Cliente> iterator;
 	private static final int MAX_CLIENTES = 1000;
 	
+	public static int numOficiais;
+	public static int numSargentos;
+	public static int numPracas;
+	
 	public Forte(GeradorEventos geradorEventos) {
 		this.geradorEventos = geradorEventos;
 
@@ -22,8 +26,6 @@ public class Forte {
 
 	protected List<Cliente> geraListaClientes() {
 		
-		System.out.println("Gerando uma lista aleatoria de clientes: 10% oficiais, 20% sargentos, 70% praças");
-
 		// Cria um número aleatório de pausas. No máximo 10% dos clientes pode ser pausa
 		int numeroPausas = (int)(MAX_CLIENTES * 0.1);
 		
@@ -44,6 +46,14 @@ public class Forte {
 	}
 
 	private HashSet<Cliente> geraHashClientes(int numeroPausas, int numClientes) {
+		
+		numOficiais = (int) Math.round(numClientes * 0.1);
+		numSargentos = (int) Math.round(numClientes * 0.2);
+		numPracas = (int) Math.round(numClientes * 0.7);
+		
+		System.out.println("Gerando uma lista aleatoria de clientes: 10% oficiais ("
+						+ numOficiais + "), 20% sargentos ("+ numSargentos + "), 70% praças (" + numPracas + ")");
+
 		HashSet<Cliente> hashCliente = new HashSet<Cliente>();
 		
 		for (int i = 0; i < numeroPausas; ) {
@@ -52,21 +62,24 @@ public class Forte {
 			}
 		}
 		
-		for (int i = 0; i < Math.round(numClientes * 0.1);) {
+		
+		for (int i = 0; i < numOficiais;) {
 			EnumPatente patente = EnumPatente.OFICIAL;
 			if (hashCliente.add(new Cliente(patente, geraTempoServico(patente)))) {
 				i++;
 			}
 		}
 		
-		for (int i = 0; i < Math.round(numClientes * 0.2);) {
+		
+		for (int i = 0; i < numSargentos;) {
 			EnumPatente patente = EnumPatente.SARGENTO;
 			if (hashCliente.add(new Cliente(patente, geraTempoServico(patente)))) {
 				i++;
 			}
 		}
 		
-		for (int i = 0; i < Math.round(numClientes * 0.7);) {
+		
+		for (int i = 0; i < numPracas;) {
 			EnumPatente patente = EnumPatente.PRACA;
 			if (hashCliente.add(new Cliente(patente, geraTempoServico(patente)))) {
 				i++;
