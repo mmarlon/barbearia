@@ -42,9 +42,6 @@ public class ControleAcesso implements Runnable{
 		
 	}
 
-	/**
-	 * Método que faz o tenente ficar esperando apróxima chegada de algum cliente.
-	 */
 	private void aguardaProximaChegada() {
 		sleep((forte.geraEvento()%5+1) * Simulador.VELOCIDADE_SIMULACAO);
 	}
@@ -99,9 +96,6 @@ public class ControleAcesso implements Runnable{
 		}
 	}
 
-	/**
-	 * Método que fazer com que o funcionário termine seu expediente.
-	 */
 	public void fimDoDia() {
 		try {
 			//System.out.println("Terminando o "+this.getClass().getSimpleName());
