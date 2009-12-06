@@ -250,35 +250,11 @@ public class Barbearia implements Runnable {
 		sargentosAtendidos.clear();
 		pracasAtendidos.clear();
 	
-//		VELHO(estadoBarbearia);
-		
 		mudouEstado = false;
 		
 		return estadoBarbearia;
 	}
 
-//	private void VELHO(EstadoBarbearia estadoBarbearia) {
-//		estadoBarbearia.setNumOficiaisFilaEspera(oficiaisList.size());
-//		estadoBarbearia.setNumSargentosFilaEspera(sargentosList.size());
-//		estadoBarbearia.setNumPracasFilaEspera(pracasList.size());
-//		
-//		estadoBarbearia.setNumDescartados(ControleAcesso.getNumeroDescartados());
-//		ControleAcesso.limparDescartados();
-//		
-//		estadoBarbearia.setTotalClientes(numClientes);
-//		
-//		for (Cliente cliente : oficiaisList) {
-//			estadoBarbearia.getTempoServicoOficiais().add(cliente.getTempoServico());
-//		}
-//		
-//		for (Cliente cliente : sargentosList) {
-//			estadoBarbearia.getTempoServicoSargento().add(cliente.getTempoServico());
-//		}
-//		
-//		for (Cliente cliente : pracasList) {
-//			estadoBarbearia.getTempoServicoPracas().add(cliente.getTempoServico());
-//		}
-//	}
 
 	public boolean isMudouEstado() {
 		return mudouEstado;
