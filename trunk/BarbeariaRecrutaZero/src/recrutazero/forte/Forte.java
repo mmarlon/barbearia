@@ -1,8 +1,8 @@
 package recrutazero.forte;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import recrutazero.clientes.Cliente;
@@ -36,7 +36,7 @@ public class Forte {
 		Cliente [] clientes = new Cliente[hashCliente.size()];
 		clientes = hashCliente.toArray(clientes);
 		
-		List<Cliente> listaClientes = new ArrayList<Cliente>();
+		List<Cliente> listaClientes = new LinkedList<Cliente>();
 		
 		for (Cliente cliente : clientes) {
 			listaClientes.add(cliente);
