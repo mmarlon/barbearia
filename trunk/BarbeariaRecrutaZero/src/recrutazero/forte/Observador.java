@@ -145,7 +145,7 @@ public class Observador implements Runnable{
 		relatorio.append("Sargentos: " + String.format("%.2f", (tamFilaSargentos / numEstados)) + "\n");
 		relatorio.append("Pracas: " + String.format("%.2f", (tamFilaPracas / numEstados)) + "\n\n");
 		
-		relatorio.append("* Número de clientes descartados: " + clientesDescartados + "\n\n");
+		relatorio.append("* Numero de clientes descartados: " + clientesDescartados + "\n\n");
 		
 		relatorio.append("* Tempo medio de atendimento por categoria:\n");
 		relatorio.append("Oficiais: " + String.format("%.2f", (tempoAtendimentoOficiais / numEstAtendimentoOficiais)) + " seg \n");
@@ -157,12 +157,12 @@ public class Observador implements Runnable{
 		relatorio.append("Sargentos: " + String.format("%.2f", (tempoEsperaSargentos / numEstAtendimentoSargentos)) + " seg \n");
 		relatorio.append("Pracas: " + String.format("%.2f", (tempoEsperaPracas/ numEstAtendimentoPracas)) + " seg \n\n");
 		
-		relatorio.append("* Número de atendimentos por categoria:\n");
+		relatorio.append("* Numero de atendimentos por categoria:\n");
 		relatorio.append("Oficiais: " + String.format("%.2f", (atendimentoOficiais / numEstados)) + "\n");
 		relatorio.append("Sargentos: " + String.format("%.2f", (atendimentoSargentos / numEstados)) + "\n");
 		relatorio.append("Pracas: " + String.format("%.2f", (atendimentoPracas/ numEstados)) + "\n\n");
 		
-		relatorio.append("* Número total de clientes por categoria:\n");
+		relatorio.append("* Numero total de clientes por categoria:\n");
 		relatorio.append("Oficiais: " + totalAtendimentoOficiais + "\n");
 		relatorio.append("Sargentos: " + totalAtendimentoSargentos + "\n");
 		relatorio.append("Pracas: " + totalAtendimentoPracas + "\n");
