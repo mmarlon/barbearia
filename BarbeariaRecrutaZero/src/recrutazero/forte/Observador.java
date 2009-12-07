@@ -9,7 +9,7 @@ import recrutazero.Simulador;
 
 public class Observador implements Runnable{
 
-	private static final int INTERVALO = 50;
+	private static final int INTERVALO = 5;
 	private Barbearia barbearia;
 	private List<EstadoBarbearia> estadosBarbearia;
 	private boolean fimDoDia;

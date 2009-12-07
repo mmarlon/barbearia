@@ -22,7 +22,7 @@ public class Barbearia implements Runnable {
 	protected Semaphore sargentosSemaforo;
 	protected Semaphore pracasSemaforo;
 	private Semaphore semaforoFim = new Semaphore(0, true);
-	private Semaphore semaforoFazendoRelatorio;
+	private Semaphore semaforoRelatorio;
 	private boolean mudouEstado = false;
 	private boolean fechar = false;
 	private int numClientes = 0;
@@ -39,7 +39,7 @@ public class Barbearia implements Runnable {
 		this.sargentosSemaforo = sargentosSemaforo;
 		this.pracasSemaforo = pracasSemaforo;
 		
-		this.semaforoFazendoRelatorio = semaforoRelatorio;
+		this.semaforoRelatorio = semaforoRelatorio;
 
 		oficiaisList = new ArrayList<Cliente>();
 		sargentosList = new ArrayList<Cliente>();
@@ -118,7 +118,7 @@ public class Barbearia implements Runnable {
 		
 		try {
 			
-			semaforoFazendoRelatorio.acquire();
+			semaforoRelatorio.acquire();
 			// Garanto que os dados da fila não serão modificados enquanto faço a adição do produto.
 			semaforo.acquire();
 			cliente = lista.remove(0);
@@ -127,7 +127,7 @@ public class Barbearia implements Runnable {
 			mudouEstado = true;
 			verificaTermino();
 			semaforo.release();
-			semaforoFazendoRelatorio.release();
+			semaforoRelatorio.release();
 						
 		} catch (InterruptedException e) {
 			e.printStackTrace();
