@@ -29,7 +29,7 @@ public abstract class BarbeiroAbstrato implements Runnable{
 	 */
 	private void atendeCliente() {
 		Cliente cliente = escolhaCliente();
-		System.out.println(this.getClass().getSimpleName() + " atenderá " + cliente.getPatente().getPatente() + " por " + cliente.getTempoServico() + " seg");
+		System.out.println(this.getClass().getSimpleName() + " atendera " + cliente.getPatente().getPatente() + " por " + cliente.getTempoServico() + " seg");
 		sleep(cliente.getTempoServico() * Simulador.VELOCIDADE_SIMULACAO);
 	}
 
