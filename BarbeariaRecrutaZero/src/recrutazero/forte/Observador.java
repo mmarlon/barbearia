@@ -14,14 +14,14 @@ public class Observador implements Runnable{
 	private List<EstadoBarbearia> estadosBarbearia;
 	private boolean fimDoDia;
 	
-	private Semaphore semaforoFazendoRelatorio;
+	private Semaphore semaforoRelatorio;
 	
 	
 	public Observador(Barbearia barbearia, Semaphore semaforoRelatorio) {
 		this.barbearia = barbearia;
 		estadosBarbearia = new ArrayList<EstadoBarbearia>();
 		
-		this.semaforoFazendoRelatorio = semaforoRelatorio;
+		this.semaforoRelatorio = semaforoRelatorio;
 		
 	}
 	@Override
@@ -35,10 +35,10 @@ public class Observador implements Runnable{
 	private void coletaDadosRelatorio() {
 		if(barbearia.isMudouEstado()){
 			try {
-				semaforoFazendoRelatorio.acquire();
+				semaforoRelatorio.acquire();
 				EstadoBarbearia estado = barbearia.getEstado();
 				estadosBarbearia.add(estado);
-				semaforoFazendoRelatorio.release();
+				semaforoRelatorio.release();
 				
 			} catch (InterruptedException e) {
 				System.out.println("Não foi possível pegar os dados para o relatório.");
