@@ -2,6 +2,7 @@ package recrutazero.forte;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 import recrutazero.Simulador;
@@ -172,7 +173,7 @@ public class Observador implements Runnable{
 		
 		System.out.println(relatorio.toString());
 		
-		
+		new Scanner(System.in).next();
 	}
 
 	
